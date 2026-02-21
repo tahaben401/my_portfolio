@@ -116,7 +116,7 @@ const Contact = () => {
                                     </div>
                                 </a>
 
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="block group">
+                                <a href="https://ma.linkedin.com/in/taha-benahmadi-85353a3a9" target="_blank" rel="noopener noreferrer" className="block group">
                                     <div className="flex items-center gap-4 p-3 rounded hover:bg-white/5 transition-colors border border-transparent hover:border-accent-secondary/30">
                                         <Linkedin className="text-text-secondary group-hover:text-accent-secondary transition-colors" />
                                         <div className="font-mono text-sm">

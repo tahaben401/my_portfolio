@@ -1,44 +1,67 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const SkillBar = ({ name, level, color = 'bg-accent-primary' }) => (
-    <div className="mb-4">
-        <div className="flex justify-between text-xs font-mono mb-1">
-            <span className="text-text-primary">{name}</span>
-            <span className={`${color.replace('bg-', 'text-')}`}>{level}%</span>
+const SkillChip = ({ name, index, color, glowColor }) => (
+    <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: index * 0.08, duration: 0.4, ease: 'easeOut' }}
+        whileHover={{ scale: 1.05, y: -2 }}
+        className={`group relative px-4 py-3 rounded-lg border cursor-default transition-all duration-300 ${color}`}
+    >
+        {/* Glow effect on hover */}
+        <div className={`absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${glowColor} blur-md -z-10`} />
+
+        {/* Terminal-style prefix */}
+        <div className="flex items-center gap-2">
+            <span className="text-[10px] opacity-40 font-mono select-none">▹</span>
+            <span className="text-sm font-mono text-text-primary group-hover:text-white transition-colors">{name}</span>
         </div>
-        <div className="w-full h-2 bg-bg-primary rounded-full overflow-hidden">
-            <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${level}%` }}
-                transition={{ duration: 1, ease: 'easeOut' }}
-                className={`h-full ${color} shadow-[0_0_10px_currentColor]`}
-            />
-        </div>
-    </div>
+    </motion.div>
 );
 
 const Skills = () => {
     const skills = {
         frontend: [
-            { name: 'React.js', level: 90 },
-            { name: 'Tailwind CSS', level: 95 },
-            { name: 'JavaScript/ES6+', level: 85 },
-            { name: 'HTML5/CSS3', level: 95 },
+            'React.js', 'Tailwind CSS', 'JavaScript/ES6+', 'HTML5/CSS3', 'Framer Motion', 'Responsive Design'
         ],
         backend: [
-            { name: 'Node.js/Express', level: 80 },
-            { name: 'Spring Boot', level: 75 },
-            { name: 'PostgreSQL', level: 70 },
-            { name: 'Supabase', level: 85 },
+            'Node.js/Express', 'Spring Boot', 'PostgreSQL', 'Supabase', 'REST APIs', 'MongoDB','JWT Authentication'
         ],
         security: [
-            { name: 'OWASP Top 10', level: 85 },
-            { name: 'Penetration Testing', level: 60 },
-            { name: 'Burp Suite', level: 70 },
-            { name: 'Network Security', level: 65 },
+            'OWASP Top 10', 'Web Penetration Testing', 'Burp Suite', 'Caido', 'Linux/Kali', 'CTF Challenges'
         ]
     };
+
+    const columns = [
+        {
+            key: 'frontend',
+            title: '[ FRONTEND ]',
+            titleColor: 'text-accent-tertiary',
+            borderHover: 'hover:border-accent-tertiary/30',
+            chipColor: 'bg-accent-tertiary/5 border-accent-tertiary/20 hover:border-accent-tertiary/60 hover:bg-accent-tertiary/10',
+            glowColor: 'bg-accent-tertiary/20',
+            delay: 0.1,
+        },
+        {
+            key: 'backend',
+            title: '[ BACKEND ]',
+            titleColor: 'text-accent-primary',
+            borderHover: 'hover:border-accent-primary/30',
+            chipColor: 'bg-accent-primary/5 border-accent-primary/20 hover:border-accent-primary/60 hover:bg-accent-primary/10',
+            glowColor: 'bg-accent-primary/20',
+            delay: 0.2,
+        },
+        {
+            key: 'security',
+            title: '[ SECURITY ]',
+            titleColor: 'text-accent-secondary',
+            borderHover: 'hover:border-accent-secondary/30',
+            chipColor: 'bg-accent-secondary/5 border-accent-secondary/20 hover:border-accent-secondary/60 hover:bg-accent-secondary/10',
+            glowColor: 'bg-accent-secondary/20',
+            delay: 0.3,
+        }
+    ];
 
     return (
         <section id="skills" className="py-20 relative">
@@ -50,38 +73,28 @@ const Skills = () => {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Frontend Column */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="bg-bg-secondary/40 backdrop-blur p-6 rounded-xl border border-white/5 hover:border-accent-tertiary/30 transition-colors"
-                    >
-                        <h3 className="text-xl font-mono text-accent-tertiary mb-6 border-b border-white/10 pb-2">[ FRONTEND ]</h3>
-                        {skills.frontend.map(s => <SkillBar key={s.name} {...s} color="bg-accent-tertiary" />)}
-                    </motion.div>
-
-                    {/* Backend Column */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="bg-bg-secondary/40 backdrop-blur p-6 rounded-xl border border-white/5 hover:border-accent-primary/30 transition-colors"
-                    >
-                        <h3 className="text-xl font-mono text-accent-primary mb-6 border-b border-white/10 pb-2">[ BACKEND ]</h3>
-                        {skills.backend.map(s => <SkillBar key={s.name} {...s} color="bg-accent-primary" />)}
-                    </motion.div>
-
-                    {/* Security Column */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="bg-bg-secondary/40 backdrop-blur p-6 rounded-xl border border-white/5 hover:border-accent-secondary/30 transition-colors"
-                    >
-                        <h3 className="text-xl font-mono text-accent-secondary mb-6 border-b border-white/10 pb-2">[ SECURITY ]</h3>
-                        {skills.security.map(s => <SkillBar key={s.name} {...s} color="bg-accent-secondary" />)}
-                    </motion.div>
+                    {columns.map(col => (
+                        <motion.div
+                            key={col.key}
+                            initial={{ y: 20, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ delay: col.delay }}
+                            className={`bg-bg-secondary/40 backdrop-blur p-6 rounded-xl border border-white/5 ${col.borderHover} transition-colors`}
+                        >
+                            <h3 className={`text-xl font-mono ${col.titleColor} mb-6 border-b border-white/10 pb-2`}>{col.title}</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {skills[col.key].map((skill, i) => (
+                                    <SkillChip
+                                        key={skill}
+                                        name={skill}
+                                        index={i}
+                                        color={col.chipColor}
+                                        glowColor={col.glowColor}
+                                    />
+                                ))}
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
 
                 {/* Decorative Element */}

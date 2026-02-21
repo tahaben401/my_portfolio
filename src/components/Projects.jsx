@@ -52,13 +52,22 @@ const ProjectCard = ({ project, index }) => {
                         </div>
 
                         {/* Links */}
-                        <div className="flex gap-4 pt-2 border-t border-white/5">
-                            <button className="flex items-center gap-2 text-sm font-mono text-text-primary hover:text-accent-primary transition-colors">
-                                <Play size={14} /> LIVE DEMO
-                            </button>
-                            <button className="flex items-center gap-2 text-sm font-mono text-text-primary hover:text-accent-tertiary transition-colors">
-                                <Github size={14} /> SOURCE CODE
-                            </button>
+                        <div className="flex flex-wrap gap-3 pt-2 border-t border-white/5">
+                            {project.frontendRepo && (
+                                <a href={project.frontendRepo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-text-primary hover:text-accent-tertiary transition-colors">
+                                    <Github size={14} /> Frontend
+                                </a>
+                            )}
+                            {project.backendRepo && (
+                                <a href={project.backendRepo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-text-primary hover:text-accent-primary transition-colors">
+                                    <Server size={14} /> Backend
+                                </a>
+                            )}
+                            {project.liveDemo && (
+                                <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-mono text-text-primary hover:text-accent-secondary transition-colors">
+                                    <Play size={14} /> Live Demo
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -75,6 +84,8 @@ const Projects = () => {
             type: "Real-time Interactive Platform",
             description: "A 2D virtual campus giving real-time state of all rooms. Includes student tracking, room details, and an integrated AI chatbot for campus assistance.",
             stack: ["React.js", "Express.js", "Flask", "AI/LLM", "Socket.io"],
+            frontendRepo: "https://github.com/tahaben401/2d-campus",
+            backendRepo: "https://github.com/tahaben401/2d-campus-backend",
         },
         {
             id: "elearn",
@@ -82,6 +93,8 @@ const Projects = () => {
             type: "Educational System",
             description: "Comprehensive university e-learning platform. Features course management, student progress tracking, and secure resource distribution.",
             stack: ["React.js", "Spring Boot", "PostgreSQL", "JWT Auth", "REST API"],
+            frontendRepo: "https://github.com/OmarBouhlal/elearning-front",
+            backendRepo: "https://github.com/tahaben401/Elearning-platform",
         }
     ];
 
